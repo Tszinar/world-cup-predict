@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ЧМ 2026 — Прогнозы</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--g:#F5C518;--b:#2563eb;--dk:#0A0E1A;--sf:#131929;--s2:#1a2236;--br:#2a3550;--mt:#8892a4;--gn:#22c55e;--rd:#ef4444}
+body{font-family:'Segoe UI',sans-serif;background:var(--dk);color:#e8eaf0;min-height:100vh;font-size:13px}
+
+/* ADMIN BANNER */
+.admin-banner{background:linear-gradient(90deg,#0d1a3a,#0d1526);border-bottom:2px solid var(--g);padding:.5rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;min-height:40px}
+.admin-banner-text{flex:1;font-size:13px;color:#fff;text-align:center;font-weight:500;word-break:break-word}
+.admin-banner-canvas{display:none;width:100%;height:60px;cursor:crosshair;border-radius:5px;background:rgba(255,255,255,.04);border:1px dashed var(--br)}
+.admin-banner-canvas.on{display:block}
+.banner-edit-btns{display:flex;gap:.3rem;flex-shrink:0}
+
+.nav{background:#0d1526;border-bottom:1px solid var(--br);padding:0 .875rem;display:flex;align-items:center;height:50px;gap:2px;position:sticky;top:0;z-index:100;overflow-x:auto;flex-wrap:nowrap}
+.logo{font-size:14px;font-weight:800;color:var(--g);margin-right:.875rem;white-space:nowrap;flex-shrink:0}
+.nt{padding:6px 10px;font-size:12px;cursor:pointer;color:var(--mt);border-radius:5px;border:none;background:none;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.nt:hover{color:#fff;background:var(--s2)}.nt.on{color:var(--g);background:rgba(245,197,24,.08);font-weight:600}
+.nr{margin-left:auto;display:flex;gap:5px;flex-shrink:0;align-items:center}
+.btn{padding:5px 11px;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.bo{background:transparent;border:1px solid var(--br);color:var(--mt)}.bo:hover{border-color:var(--g);color:var(--g)}
+.bg{background:var(--g);color:#0A0E1A}.bg:hover{background:#e6b800}
+.bb{background:var(--b);color:#fff}.bb:hover{background:#1d4ed8}
+.br-btn{background:var(--rd);color:#fff}.br-btn:hover{background:#dc2626}
+.pg{display:none;padding:1rem;max-width:1100px;margin:0 auto}.pg.on{display:block}
+.hero{background:#0d1a3a;border:1px solid var(--br);border-radius:11px;padding:1.5rem;margin-bottom:1rem;text-align:center}
+.hero h1{font-size:22px;font-weight:800;color:#fff;margin-bottom:.3rem}
+.hero h1 em{color:var(--g);font-style:normal}
+.hero p{color:var(--mt);font-size:12px;margin-bottom:1rem}
+.hstats{display:flex;gap:.625rem;justify-content:center;flex-wrap:wrap}
+.hs{padding:.5rem 1rem;background:rgba(255,255,255,.04);border:1px solid var(--br);border-radius:7px;text-align:center}
+.hs-v{font-size:18px;font-weight:700;color:var(--g)}.hs-l{font-size:10px;color:var(--mt)}
+.stitle{font-size:13px;font-weight:600;color:#fff;margin-bottom:.75rem;display:flex;align-items:center;gap:.35rem}
+.stitle::before{content:'';display:inline-block;width:3px;height:14px;background:var(--g);border-radius:2px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.875rem}
+.card{background:var(--sf);border:1px solid var(--br);border-radius:9px;padding:1rem}
+.mc{background:var(--sf);border:1px solid var(--br);border-radius:8px;padding:.75rem .875rem;display:flex;align-items:center;gap:.75rem;cursor:pointer;transition:all .15s;margin-bottom:.4rem}
+.mc:hover{border-color:var(--b);background:var(--s2)}.mc.pred{border-left:3px solid var(--b)}
+.mct{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem}
+.mf{font-size:18px}.mtn{font-size:11px;font-weight:500;color:#fff;min-width:65px;text-align:center}
+.msc{font-size:14px;font-weight:700;color:var(--g);min-width:40px;text-align:center}
+.msc.nd{color:var(--mt);font-size:12px}
+.bd{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:600}
+.bl{background:rgba(239,68,68,.15);color:#f87171}
+.bdone{background:rgba(34,197,94,.12);color:#4ade80}
+.bsoon{background:rgba(245,197,24,.1);color:var(--g)}
+.bpred{background:rgba(37,99,235,.15);color:#60a5fa}
+.tbar{display:flex;gap:3px;margin-bottom:.875rem;background:var(--sf);border:1px solid var(--br);border-radius:7px;padding:3px}
+.tb{flex:1;padding:5px;font-size:11px;border-radius:5px;cursor:pointer;border:none;background:transparent;color:var(--mt);transition:all .15s;font-weight:500}
+.tb.on{background:var(--b);color:#fff}
+.lb table{width:100%;border-collapse:collapse;font-size:12px}
+.lb th{text-align:left;padding:6px 7px;color:var(--mt);border-bottom:1px solid var(--br);font-weight:500;font-size:10px}
+.lb td{padding:7px;border-bottom:1px solid rgba(42,53,80,.4)}
+.lb tr:hover td{background:var(--s2)}
+.r1{color:var(--g);font-weight:700}.r2{color:#94a3b8;font-weight:700}.r3{color:#cd7c3a;font-weight:700}
+.uc{display:flex;align-items:center;gap:.35rem}
+.av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden}
+.av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.grg{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:.75rem}
+.gc{background:var(--sf);border:1px solid var(--br);border-radius:9px;overflow:hidden}
+.gh{background:var(--b);padding:.45rem .75rem;font-size:10px;font-weight:700;color:#fff;letter-spacing:.5px}
+.gt{width:100%;font-size:11px;border-collapse:collapse}
+.gt th{padding:4px 6px;color:var(--mt);font-weight:500;text-align:center}
+.gt th:first-child{text-align:left}
+.gt td{padding:5px 6px;border-top:1px solid rgba(42,53,80,.4);text-align:center;color:var(--mt)}
+.gt td:first-child{text-align:left;display:flex;align-items:center;gap:.25rem}
+.gt tr.leader td{color:#fff}
+.tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:.5rem}
+.tc{background:var(--sf);border:1px solid var(--br);border-radius:8px;padding:.75rem;text-align:center;transition:all .15s;cursor:pointer}
+.tc:hover{border-color:var(--b);background:var(--s2)}
+.tc.selected-country{border-color:var(--g);background:rgba(245,197,24,.08)}
+.tf{font-size:26px;margin-bottom:.3rem}.tn{font-size:11px;font-weight:500;color:#fff}.tg2{font-size:10px;color:var(--mt)}
+.pm{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:center;justify-content:center}
+.pm.on{display:flex}
+.pb{background:#131929;border:1px solid var(--br);border-radius:12px;padding:1.5rem;width:350px;max-width:94vw;max-height:90vh;overflow-y:auto}
+.pb h3{font-size:14px;font-weight:600;color:#fff;margin-bottom:.35rem;text-align:center}
+.ptms{display:flex;align-items:center;justify-content:center;gap:.75rem;margin:.75rem 0}
+.pi{display:flex;align-items:center;justify-content:center;gap:.5rem;margin:.5rem 0 .75rem}
+.si{width:52px;height:40px;font-size:18px;font-weight:700;text-align:center;background:var(--s2);border:1px solid var(--br);border-radius:6px;color:var(--g);outline:none}
+.si:focus{border-color:var(--b)}
+.sp{font-size:18px;font-weight:700;color:var(--mt)}
+.pp{text-align:center;font-size:11px;color:var(--mt);background:rgba(255,255,255,.03);border-radius:5px;padding:.45rem;margin-bottom:.75rem}
+.pp span{color:var(--g);font-weight:600}
+.mbtns{display:flex;gap:.5rem}.mbtns button{flex:1}
+/* playoff extra time options */
+.eto-box{background:rgba(255,255,255,.03);border:1px solid var(--br);border-radius:6px;padding:.625rem;margin-bottom:.75rem;display:none}
+.eto-box.on{display:block}
+.eto-box label{font-size:11px;color:var(--mt);display:block;margin-bottom:.35rem}
+.eto-opts{display:flex;gap:.4rem}
+.eto-opts button{flex:1;padding:5px 4px;font-size:10px;border-radius:5px;cursor:pointer;border:1px solid var(--br);background:transparent;color:var(--mt);transition:all .15s}
+.eto-opts button.on{background:rgba(37,99,235,.2);border-color:var(--b);color:#93c5fd;font-weight:600}
+.am{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;align-items:center;justify-content:center}
+.am.on{display:flex}
+.ab{background:#131929;border:1px solid var(--br);border-radius:12px;padding:1.5rem;width:300px;max-width:94vw}
+.ab h3{font-size:16px;font-weight:700;color:#fff;margin-bottom:1.125rem;text-align:center}
+.ab input{width:100%;padding:8px 11px;background:var(--s2);border:1px solid var(--br);border-radius:6px;color:#fff;font-size:13px;margin-bottom:.5rem;outline:none}
+.ab input:focus{border-color:var(--b)}
+.ab input::placeholder{color:var(--mt)}
+.at{font-size:11px;text-align:center;color:var(--mt);margin-top:.75rem}
+.at a{color:var(--b);cursor:pointer}
+.ntf{position:fixed;bottom:1rem;right:1rem;background:var(--s2);border:1px solid var(--br);border-radius:8px;padding:.625rem 1rem;font-size:12px;color:#fff;z-index:400;display:none;align-items:center;gap:.5rem;max-width:280px}
+.ntf.on{display:flex}
+.pts5{background:rgba(245,197,24,.15);color:var(--g);font-weight:700}
+.pts2{background:rgba(37,99,235,.15);color:#93c5fd;font-weight:700}
+.pts1{background:rgba(148,163,184,.15);color:#94a3b8;font-weight:700}
+.bk{padding:.625rem .875rem;border-radius:7px;font-size:11px;margin-bottom:.875rem;border:1px solid}
+.bk-b{background:rgba(37,99,235,.1);color:#60a5fa;border-color:rgba(37,99,235,.2)}
+.bk-y{background:rgba(245,197,24,.08);color:var(--g);border-color:rgba(245,197,24,.2)}
+.bk-r{background:rgba(239,68,68,.1);color:#f87171;border-color:rgba(239,68,68,.2)}
+.bracket{overflow-x:auto;padding-bottom:.5rem}
+.brow{display:flex;gap:.625rem;min-width:max-content}
+.brd{display:flex;flex-direction:column;gap:.35rem;min-width:140px}
+.brt{font-size:9px;font-weight:700;color:var(--g);text-align:center;margin-bottom:.35rem;letter-spacing:.5px}
+.brm{background:var(--sf);border:1px solid var(--br);border-radius:6px;overflow:hidden;margin-bottom:.3rem}
+.brt2{padding:5px 8px;font-size:10px;color:#fff;border-bottom:1px solid var(--br)}
+.brt2:last-child{border-bottom:none}
+.brt2.w{background:rgba(37,99,235,.2);color:var(--g);font-weight:600}
+.spts{font-size:9px;padding:1px 5px;border-radius:3px;margin-left:3px}
+/* FORUM */
+.fthread{background:var(--sf);border:1px solid var(--br);border-radius:8px;padding:.75rem .875rem;margin-bottom:.4rem;cursor:pointer;transition:all .15s}
+.fthread:hover{border-color:var(--b);background:var(--s2)}
+.ft-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:.25rem}
+.ft-meta{font-size:11px;color:var(--mt)}
+.fpost{background:var(--s2);border:1px solid var(--br);border-radius:7px;padding:.75rem;margin-bottom:.4rem}
+.fp-header{display:flex;align-items:center;gap:.4rem;margin-bottom:.4rem}
+.fp-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;overflow:hidden;flex-shrink:0}
+.fp-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.fp-nick{font-size:12px;font-weight:600;color:#fff}
+.fp-time{font-size:10px;color:var(--mt);margin-left:auto}
+.fp-text{font-size:12px;color:#c8d0dc;line-height:1.5}
+.fp-img{max-width:100%;border-radius:6px;margin-top:.5rem;cursor:pointer}
+textarea{width:100%;padding:8px 11px;background:var(--s2);border:1px solid var(--br);border-radius:6px;color:#fff;font-size:12px;resize:vertical;outline:none;min-height:70px;font-family:inherit}
+textarea:focus{border-color:var(--b)}
+textarea::placeholder{color:var(--mt)}
+/* ADMIN PANEL */
+.admin-section{background:var(--sf);border:1px solid rgba(239,68,68,.3);border-radius:9px;padding:1rem;margin-bottom:.875rem}
+.admin-section h3{font-size:13px;font-weight:600;color:#f87171;margin-bottom:.75rem;display:flex;align-items:center;gap:.35rem}
+.a-inp{width:100%;padding:7px 10px;background:var(--s2);border:1px solid var(--br);border-radius:6px;color:#fff;font-size:12px;outline:none;margin-bottom:.4rem}
+.a-inp:focus{border-color:var(--rd)}
+select.a-inp{cursor:pointer}
+.a-row{display:flex;gap:.4rem;margin-bottom:.4rem;align-items:center;flex-wrap:wrap}
+.a-row .a-inp{margin-bottom:0}
+.a-row .btn{flex-shrink:0}
+/* PLAYOFF BRACKET PREDICTION */
+.po-section{margin-top:1.25rem}
+.po-drag-row{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.5rem}
+.po-team{background:var(--sf);border:1px solid var(--br);border-radius:6px;padding:.4rem .65rem;font-size:11px;cursor:grab;display:flex;align-items:center;gap:.3rem;transition:all .15s}
+.po-team:hover{border-color:var(--b)}
+.po-team.dragging{opacity:.4}
+.po-slot{background:rgba(0,0,0,.2);border:1px dashed var(--br);border-radius:6px;padding:.4rem .65rem;font-size:11px;min-width:120px;min-height:32px;transition:all .15s;display:flex;align-items:center;gap:.3rem}
+.po-slot.drag-over{border-color:var(--g);background:rgba(245,197,24,.05)}
+.po-slot.filled{border-style:solid;border-color:var(--b);background:var(--s2)}
+/* profile modal */
+.profile-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:250;align-items:center;justify-content:center}
+.profile-modal.on{display:flex}
+.profile-modal .pb{width:400px}
+/* score table in home */
+.score-table{display:flex;flex-direction:column;gap:.35rem}
+.score-row{display:flex;justify-content:space-between;align-items:center;padding:.3rem .5rem;border-radius:5px}
+/* country flag in nick */
+.flag-badge{font-size:14px;line-height:1}
+/* avatar upload */
+.av-upload{position:relative;cursor:pointer}
+.av-upload input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+</style>
+</head>
+<body>
+
+<!-- ADMIN BANNER -->
+<div class="admin-banner" id="admin-banner">
+  <div class="admin-banner-text" id="banner-text">🏆 Добро пожаловать на платформу прогнозов ЧМ-2026!</div>
+  <canvas class="admin-banner-canvas" id="banner-canvas" width="700" height="60"></canvas>
+  <div class="banner-edit-btns" id="banner-edit-btns" style="display:none">
+    <button class="btn bo" style="font-size:10px" onclick="toggleBannerMode('text')">Текст</button>
+    <button class="btn bo" style="font-size:10px" onclick="toggleBannerMode('draw')">Рисунок</button>
+    <button class="btn bg" style="font-size:10px" onclick="saveBanner()">Сохранить</button>
+    <button class="btn bo" style="font-size:10px" onclick="clearBanner()">Очистить</button>
+  </div>
+</div>
+
+<h2 class="sr-only">ЧМ-2026 — Прогнозы</h2>
+<div class="nav">
+  <div class="logo">⚽ЧМ<span style="color:var(--g)">2026</span></div>
+  <button class="nt on" onclick="sp('home')">Главная</button>
+  <button class="nt" onclick="sp('matches')">Матчи</button>
+  <button class="nt" onclick="sp('groups')">Группы</button>
+  <button class="nt" onclick="sp('playoff')">Плей-офф</button>
+  <button class="nt" onclick="sp('teams')">Команды</button>
+  <button class="nt" onclick="sp('predict')">Прогнозы</button>
+  <button class="nt" onclick="sp('lb')">Лидеры</button>
+  <button class="nt" onclick="sp('forum')">Форум</button>
+  <button class="nt" id="adm-tab" style="display:none" onclick="sp('admin')">⚙ Админ</button>
+  <button class="nt" onclick="sp('profile')">Профиль</button>
+  <div class="nr" id="nr">
+    <button class="btn bo" onclick="oA('login')">Войти</button>
+    <button class="btn bg" onclick="oA('reg')">Регистрация</button>
+  </div>
+</div>
+
+<!-- HOME -->
+<div id="p-home" class="pg on">
+  <div class="hero">
+    <h1>Чемпионат Мира <em>2026</em></h1>
+    <p>США • Канада • Мексика &nbsp;|&nbsp; 11 июня — 19 июля 2026</p>
+    <div class="hstats">
+      <div class="hs"><div class="hs-v">48</div><div class="hs-l">Команд</div></div>
+      <div class="hs"><div class="hs-v">104</div><div class="hs-l">Матчей</div></div>
+      <div class="hs"><div class="hs-v">12</div><div class="hs-l">Групп</div></div>
+      <div class="hs"><div class="hs-v">3</div><div class="hs-l">Страны</div></div>
+    </div>
+  </div>
+  <div class="g2">
+    <div>
+      <div class="stitle">Последние результаты</div>
+      <div id="h-done"></div>
+      <div class="stitle" style="margin-top:.875rem">Ближайшие матчи</div>
+      <div id="h-soon"></div>
+    </div>
+    <div>
+      <div class="stitle">Топ прогнозистов</div>
+      <div class="card" id="h-top"></div>
+      <div style="margin-top:.875rem">
+        <div class="stitle">Система начисления баллов</div>
+        <div class="card score-table">
+          <div class="score-row" style="background:rgba(245,197,24,.07)"><span style="color:var(--mt)">Точный счёт</span><span class="pts5 spts" style="font-size:11px;padding:2px 8px">+5 баллов</span></div>
+          <div class="score-row" style="background:rgba(37,99,235,.07)"><span style="color:var(--mt)">Угадан исход (П1/Х/П2)</span><span class="pts2 spts" style="font-size:11px;padding:2px 8px">+2 балла</span></div>
+          <div class="score-row" style="background:rgba(148,163,184,.05)"><span style="color:var(--mt)">Угадана разница мячей</span><span class="pts1 spts" style="font-size:11px;padding:2px 8px">+1 балл</span></div>
+          <div class="score-row" style="background:rgba(148,163,184,.05)"><span style="color:var(--mt)">Точный гол хозяев</span><span class="pts1 spts" style="font-size:11px;padding:2px 8px">+1 балл</span></div>
+          <div class="score-row" style="background:rgba(148,163,184,.05)"><span style="color:var(--mt)">Точный гол гостей</span><span class="pts1 spts" style="font-size:11px;padding:2px 8px">+1 балл</span></div>
+          <div style="font-size:10px;color:var(--mt);padding:.3rem .5rem;border-top:1px solid var(--br);margin-top:.2rem">Прогноз закрывается за 30 минут до матча</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MATCHES -->
+<div id="p-matches" class="pg">
+  <div class="tbar">
+    <button class="tb on" onclick="sm('group')" id="sm-g">Групповой этап</button>
+    <button class="tb" onclick="sm('playoff')" id="sm-p">Плей-офф</button>
+  </div>
+  <div style="display:flex;gap:.35rem;margin-bottom:.75rem;flex-wrap:wrap">
+    <button class="btn bb" id="fa" onclick="fm('a')">Все</button>
+    <button class="btn bo" id="fu" onclick="fm('u')">Предстоящие</button>
+    <button class="btn bo" id="fd" onclick="fm('d')">Сыгранные</button>
+  </div>
+  <div id="all-m"></div>
+</div>
+
+<!-- GROUPS -->
+<div id="p-groups" class="pg">
+  <div class="stitle">Турнирные таблицы — Групповой этап</div>
+  <div class="grg" id="groups-div"></div>
+</div>
+
+<!-- PLAYOFF -->
+<div id="p-playoff" class="pg">
+  <div class="tbar">
+    <button class="tb on" onclick="spo('bracket')" id="spo-b">Сетка плей-офф</button>
+    <button class="tb" onclick="spo('predict')" id="spo-p">Прогноз турнирной таблицы</button>
+  </div>
+  <div id="po-bracket-view">
+    <div class="stitle">Плей-офф сетка</div>
+    <div class="bk bk-y">🏆 1/16 финала стартует 28 июня. 32 команды: по 2 лучших из каждой группы + 8 лучших сборных с 3-го места.</div>
+    <div class="bracket" id="bracket-div"></div>
+  </div>
+  <div id="po-predict-view" style="display:none">
+    <div class="stitle">Прогноз турнирной таблицы и плей-офф</div>
+    <div id="po-predict-inner"></div>
+  </div>
+</div>
+
+<!-- TEAMS -->
+<div id="p-teams" class="pg">
+  <div class="stitle">Все 48 команд-участниц</div>
+  <div style="font-size:11px;color:var(--mt);margin-bottom:.75rem">Выберите страну — флаг отобразится в вашем профиле и никнейме</div>
+  <div class="tg" id="teams-div"></div>
+</div>
+
+<!-- PREDICT -->
+<div id="p-predict" class="pg">
+  <div class="stitle">Мои прогнозы</div>
+  <div id="pnote" style="display:none" class="bk bk-y">⚠ Войдите в аккаунт, чтобы делать прогнозы</div>
+  <div id="predict-div"></div>
+</div>
+
+<!-- LEADERBOARD -->
+<div id="p-lb" class="pg">
+  <div class="tbar">
+    <button class="tb on" onclick="slt('t')" id="lt-t">Общий зачёт</button>
+    <button class="tb" onclick="slt('p')" id="lt-p">% угадываний</button>
+  </div>
+  <div class="lb" id="lb-t"></div>
+  <div class="lb" id="lb-p" style="display:none"></div>
+</div>
+
+<!-- FORUM -->
+<div id="p-forum" class="pg">
+  <div id="forum-list" style="display:block"></div>
+  <div id="forum-thread" style="display:none"></div>
+</div>
+
+<!-- ADMIN -->
+<div id="p-admin" class="pg">
+  <div class="bk bk-r">⚠ Панель администратора — только для TSZINAR</div>
+
+  <div class="admin-section">
+    <h3>📢 Баннер</h3>
+    <div class="a-row">
+      <input class="a-inp" id="a-banner" placeholder="Текст баннера" style="flex:1">
+      <button class="btn bg" onclick="adminSetBanner()">Обновить</button>
+    </div>
+    <div style="font-size:11px;color:var(--mt);margin-top:.35rem">Или переключитесь в режим рисования через баннер наверху.</div>
+  </div>
+
+  <div class="admin-section">
+    <h3>🔓 Разблокировать прогноз плей-офф</h3>
+    <div style="font-size:11px;color:var(--mt);margin-bottom:.5rem">Позволяет пользователям изменить свой прогноз турнирной таблицы. Укажите никнейм или оставьте пустым для всех.</div>
+    <div class="a-row">
+      <input class="a-inp" id="a-unlock-nick" placeholder="Никнейм (пусто = все)" style="flex:1">
+      <button class="btn bg" onclick="adminUnlockPlayoff()">Разблокировать</button>
+    </div>
+  </div>
+
+  <div class="admin-section">
+    <h3>🏆 Таблица лидеров</h3>
+    <div style="display:flex;gap:.4rem;margin-bottom:.75rem">
+      <button class="btn br-btn" onclick="resetLB()">Обнулить всех</button>
+    </div>
+    <div id="admin-users-list"></div>
+    <div style="margin-top:.75rem;border-top:1px solid var(--br);padding-top:.75rem">
+      <div style="font-size:11px;color:var(--mt);margin-bottom:.4rem">Добавить/обновить участника вручную:</div>
+      <div class="a-row">
+        <input class="a-inp" id="a-nick" placeholder="Никнейм">
+        <input class="a-inp" id="a-pts" type="number" placeholder="Баллы" style="width:90px">
+        <input class="a-inp" id="a-tot" type="number" placeholder="Прогнозов" style="width:90px">
+        <input class="a-inp" id="a-ex" type="number" placeholder="Точных" style="width:80px">
+        <input class="a-inp" id="a-pct" type="number" placeholder="%" style="width:70px">
+        <input class="a-inp" id="a-m" type="number" placeholder="Матчей" style="width:80px">
+        <button class="btn bg" onclick="adminSaveUser()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-section">
+    <h3>📊 Результаты матчей</h3>
+    <div class="a-row">
+      <select class="a-inp" id="a-mid">
+        <option value="">Выберите матч...</option>
+      </select>
+      <input class="a-inp" id="a-s1" type="number" min="0" max="20" placeholder="Счёт 1" style="width:80px">
+      <span style="color:var(--mt);padding:0 4px">:</span>
+      <input class="a-inp" id="a-s2" type="number" min="0" max="20" placeholder="Счёт 2" style="width:80px">
+      <button class="btn bg" onclick="adminSetScore()">Записать</button>
+    </div>
+  </div>
+
+  <div class="admin-section">
+    <h3>🗣️ Форум — модерация</h3>
+    <div id="admin-forum-list"></div>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div id="p-profile" class="pg">
+  <div id="profile-div"></div>
+</div>
+
+<!-- PUBLIC PROFILE MODAL -->
+<div class="profile-modal" id="pub-profile-modal">
+  <div class="pb" style="width:400px;max-height:90vh;overflow-y:auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <div class="stitle" style="margin:0">Профиль игрока</div>
+      <button class="btn bo" onclick="document.getElementById('pub-profile-modal').classList.remove('on')">✕</button>
+    </div>
+    <div id="pub-profile-content"></div>
+  </div>
+</div>
+
+<!-- PREDICT MODAL -->
+<div class="pm" id="pm">
+  <div class="pb">
+    <h3 id="pm-t">Прогноз</h3>
+    <div class="ptms">
+      <div style="text-align:center"><div style="font-size:24px" id="pm-f1">🇧🇷</div><div style="font-size:10px;color:var(--mt);margin-top:2px" id="pm-n1">Бразилия</div></div>
+      <div class="pi">
+        <input class="si" type="number" min="0" max="20" id="pi1" value="1" oninput="upv()">
+        <span class="sp">:</span>
+        <input class="si" type="number" min="0" max="20" id="pi2" value="0" oninput="upv()">
+      </div>
+      <div style="text-align:center"><div style="font-size:24px" id="pm-f2">🇦🇷</div><div style="font-size:10px;color:var(--mt);margin-top:2px" id="pm-n2">Аргентина</div></div>
+    </div>
+    <!-- Extra time options for draw in playoff -->
+    <div class="eto-box" id="eto-box">
+      <label>При ничьей — кто проходит дальше?</label>
+      <div class="eto-opts">
+        <button id="eto-r" onclick="setETO('regular')" title="Победитель в основное время">Осн. время</button>
+        <button id="eto-e" onclick="setETO('extra')" title="+1 балл за угаданное доп. время">Доп. время +1</button>
+        <button id="eto-p" onclick="setETO('penalty')" title="+1 балл за угаданные пенальти">Пенальти +1</button>
+      </div>
+    </div>
+    <div class="pp" id="pvw">Выберите счёт</div>
+    <div class="mbtns">
+      <button class="btn bo" onclick="cpm()">Отмена</button>
+      <button class="btn bg" onclick="savep()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="am" id="am">
+  <div class="ab">
+    <h3 id="at-t">Вход</h3>
+    <input type="text" id="an" placeholder="Никнейм">
+    <input type="password" id="ap" placeholder="Пароль">
+    <div id="ae-w" style="display:none"><input type="email" id="ae" placeholder="Email (необязательно)"></div>
+    <button class="btn bg" style="width:100%;margin-top:.25rem" onclick="doA()">Войти</button>
+    <div class="at" id="atg">Нет аккаунта? <a onclick="swA()">Зарегистрироваться</a></div>
+  </div>
+</div>
+
+<div class="ntf" id="ntf"><span id="nt2">Сохранено</span></div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const GRP={
+  A:[{n:'Мексика',f:'🇲🇽',g:'A',w:1,d:0,l:0,gf:2,ga:0,pts:3},{n:'Юж. Корея',f:'🇰🇷',g:'A',w:1,d:0,l:0,gf:2,ga:1,pts:3},{n:'Чехия',f:'🇨🇿',g:'A',w:0,d:0,l:1,gf:1,ga:2,pts:0},{n:'ЮАР',f:'🇿🇦',g:'A',w:0,d:0,l:1,gf:0,ga:2,pts:0}],
+  B:[{n:'Канада',f:'🇨🇦',g:'B',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Босния',f:'🇧🇦',g:'B',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Катар',f:'🇶🇦',g:'B',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Швейцария',f:'🇨🇭',g:'B',w:0,d:0,l:0,gf:0,ga:0,pts:0}],
+  C:[{n:'Бразилия',f:'🇧🇷',g:'C',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Марокко',f:'🇲🇦',g:'C',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Гаити',f:'🇭🇹',g:'C',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Шотландия',f:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',g:'C',w:0,d:0,l:0,gf:0,ga:0,pts:0}],
+  D:[{n:'США',f:'🇺🇸',g:'D',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Парагвай',f:'🇵🇾',g:'D',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Австралия',f:'🇦🇺',g:'D',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Турция',f:'🇹🇷',g:'D',w:0,d:0,l:0,gf:0,ga:0,pts:0}],
+  E:[{n:'Германия',f:'🇩🇪',g:'E',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Кот-д\'Ивуар',f:'🇨🇮',g:'E',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Кюрасао',f:'🇨🇼',g:'E',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Эквадор',f:'🇪🇨',g:'E',w:0,d:0,l:0,gf:0,ga:0,pts:0}],
+  F:[{n:'Нидерланды',f:'🇳🇱',g:'F',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Япония',f:'🇯🇵',g:'F',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Швеция',f:'🇸🇪',g:'F',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Тунис',f:'🇹🇳',g:'F',w:0,d:0,l:0,gf:0,ga:0,pts:0}],
+  G:[{n:'Бельгия',f:'🇧🇪',g:'G',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Египет',f:'🇪🇬',g:'G',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Иран',f:'🇮🇷',g:'G',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Нов. Зеландия',f:'🇳🇿',g:'G',w:0,d:0,l:0,gf:0,ga:0,pts:0}],
+  H:[{n:'Испания',f:'🇪🇸',g:'H',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Саудовская Аравия',f:'🇸🇦',g:'H',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Уругвай',f:'🇺🇾',g:'H',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Кабо-Верде',f:'🇨🇻',g:'H',w:0,d:0,l:0,gf:0,ga:0,pts:0}],
+  I:[{n:'Франция',f:'🇫🇷',g:'I',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Сенегал',f:'🇸🇳',g:'I',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Норвегия',f:'🇳🇴',g:'I',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Ирак',f:'🇮🇶',g:'I',w:0,d:0,l:0,gf:0,ga:0,pts:0}],
+  J:[{n:'Аргентина',f:'🇦🇷',g:'J',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Австрия',f:'🇦🇹',g:'J',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Иордания',f:'🇯🇴',g:'J',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Алжир',f:'🇩🇿',g:'J',w:0,d:0,l:0,gf:0,ga:0,pts:0}],
+  K:[{n:'Португалия',f:'🇵🇹',g:'K',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Колумбия',f:'🇨🇴',g:'K',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Узбекистан',f:'🇺🇿',g:'K',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'ДР Конго',f:'🇨🇩',g:'K',w:0,d:0,l:0,gf:0,ga:0,pts:0}],
+  L:[{n:'Англия',f:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',g:'L',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Хорватия',f:'🇭🇷',g:'L',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Гана',f:'🇬🇭',g:'L',w:0,d:0,l:0,gf:0,ga:0,pts:0},{n:'Панама',f:'🇵🇦',g:'L',w:0,d:0,l:0,gf:0,ga:0,pts:0}]
+};
+const GROUP_M=[
+  {id:1,t1:'Мексика',f1:'🇲🇽',t2:'ЮАР',f2:'🇿🇦',g:'A',d:'11 июня',st:'Сыгран',s1:2,s2:0,kickoff:new Date('2026-06-11T20:00:00')},
+  {id:2,t1:'Юж. Корея',f1:'🇰🇷',t2:'Чехия',f2:'🇨🇿',g:'A',d:'12 июня',st:'Сыгран',s1:2,s2:1,kickoff:new Date('2026-06-12T17:00:00')},
+  {id:3,t1:'Канада',f1:'🇨🇦',t2:'Босния',f2:'🇧🇦',g:'B',d:'12 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-12T23:00:00')},
+  {id:4,t1:'США',f1:'🇺🇸',t2:'Парагвай',f2:'🇵🇾',g:'D',d:'13 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-13T20:00:00')},
+  {id:5,t1:'Катар',f1:'🇶🇦',t2:'Швейцария',f2:'🇨🇭',g:'B',d:'13 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-13T23:00:00')},
+  {id:6,t1:'Бразилия',f1:'🇧🇷',t2:'Марокко',f2:'🇲🇦',g:'C',d:'14 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-14T20:00:00')},
+  {id:7,t1:'Гаити',f1:'🇭🇹',t2:'Шотландия',f2:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',g:'C',d:'14 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-14T23:00:00')},
+  {id:8,t1:'Австралия',f1:'🇦🇺',t2:'Турция',f2:'🇹🇷',g:'D',d:'14 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-14T17:00:00')},
+  {id:9,t1:'Германия',f1:'🇩🇪',t2:'Кюрасао',f2:'🇨🇼',g:'E',d:'14 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-14T20:00:00')},
+  {id:10,t1:'Нидерланды',f1:'🇳🇱',t2:'Япония',f2:'🇯🇵',g:'F',d:'14 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-14T20:00:00')},
+  {id:11,t1:'Кот-д\'Ивуар',f1:'🇨🇮',t2:'Эквадор',f2:'🇪🇨',g:'E',d:'15 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-15T20:00:00')},
+  {id:12,t1:'Швеция',f1:'🇸🇪',t2:'Тунис',f2:'🇹🇳',g:'F',d:'15 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-15T23:00:00')},
+  {id:13,t1:'Испания',f1:'🇪🇸',t2:'Кабо-Верде',f2:'🇨🇻',g:'H',d:'15 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-15T17:00:00')},
+  {id:14,t1:'Бельгия',f1:'🇧🇪',t2:'Египет',f2:'🇪🇬',g:'G',d:'15 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-15T20:00:00')},
+  {id:15,t1:'Саудовская Аравия',f1:'🇸🇦',t2:'Уругвай',f2:'🇺🇾',g:'H',d:'16 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-16T20:00:00')},
+  {id:16,t1:'Иран',f1:'🇮🇷',t2:'Нов. Зеландия',f2:'🇳🇿',g:'G',d:'16 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-16T17:00:00')},
+  {id:17,t1:'Франция',f1:'🇫🇷',t2:'Сенегал',f2:'🇸🇳',g:'I',d:'16 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-16T23:00:00')},
+  {id:18,t1:'Аргентина',f1:'🇦🇷',t2:'Австрия',f2:'🇦🇹',g:'J',d:'17 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-17T20:00:00')},
+  {id:19,t1:'Норвегия',f1:'🇳🇴',t2:'Ирак',f2:'🇮🇶',g:'I',d:'17 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-17T17:00:00')},
+  {id:20,t1:'Англия',f1:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',t2:'Панама',f2:'🇵🇦',g:'L',d:'17 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-17T23:00:00')},
+  {id:21,t1:'Португалия',f1:'🇵🇹',t2:'Узбекистан',f2:'🇺🇿',g:'K',d:'17 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-17T20:00:00')},
+  {id:22,t1:'Колумбия',f1:'🇨🇴',t2:'ДР Конго',f2:'🇨🇩',g:'K',d:'18 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-18T20:00:00')},
+  {id:23,t1:'Хорватия',f1:'🇭🇷',t2:'Гана',f2:'🇬🇭',g:'L',d:'18 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-18T23:00:00')},
+  {id:24,t1:'Алжир',f1:'🇩🇿',t2:'Иордания',f2:'🇯🇴',g:'J',d:'18 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-18T17:00:00')},
+];
+const PLAYOFF_M=[
+  {id:101,t1:'1-й Гр.A',f1:'🏅',t2:'2-й Гр.B',f2:'🥈',g:'1/16',d:'28 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-28T20:00:00'),isPlayoff:true},
+  {id:102,t1:'1-й Гр.B',f1:'🏅',t2:'3-й A/B/C',f2:'🥉',g:'1/16',d:'29 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-29T17:00:00'),isPlayoff:true},
+  {id:103,t1:'1-й Гр.C',f1:'🏅',t2:'2-й Гр.F',f2:'🥈',g:'1/16',d:'29 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-29T20:00:00'),isPlayoff:true},
+  {id:104,t1:'1-й Гр.D',f1:'🏅',t2:'3-й D/E/F',f2:'🥉',g:'1/16',d:'30 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-30T17:00:00'),isPlayoff:true},
+  {id:105,t1:'1-й Гр.E',f1:'🏅',t2:'3-й A/B/C/D',f2:'🥉',g:'1/16',d:'30 июня',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-06-30T20:00:00'),isPlayoff:true},
+  {id:106,t1:'2-й Гр.A',f1:'🥈',t2:'2-й Гр.C',f2:'🥈',g:'1/16',d:'1 июля',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-07-01T17:00:00'),isPlayoff:true},
+  {id:107,t1:'1-й Гр.F',f1:'🏅',t2:'2-й Гр.E',f2:'🥈',g:'1/16',d:'1 июля',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-07-01T20:00:00'),isPlayoff:true},
+  {id:108,t1:'1-й Гр.G',f1:'🏅',t2:'3-й G/H/I',f2:'🥉',g:'1/16',d:'1 июля',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-07-01T23:00:00'),isPlayoff:true},
+  {id:109,t1:'1-й Гр.H',f1:'🏅',t2:'2-й Гр.G',f2:'🥈',g:'1/16',d:'2 июля',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-07-02T17:00:00'),isPlayoff:true},
+  {id:110,t1:'1-й Гр.I',f1:'🏅',t2:'3-й J/K/L',f2:'🥉',g:'1/16',d:'2 июля',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-07-02T20:00:00'),isPlayoff:true},
+  {id:111,t1:'2-й Гр.D',f1:'🥈',t2:'2-й Гр.H',f2:'🥈',g:'1/16',d:'2 июля',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-07-02T23:00:00'),isPlayoff:true},
+  {id:112,t1:'1-й Гр.J',f1:'🏅',t2:'2-й Гр.I',f2:'🥈',g:'1/16',d:'3 июля',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-07-03T17:00:00'),isPlayoff:true},
+  {id:113,t1:'1-й Гр.K',f1:'🏅',t2:'3-й A/B/C/D/E',f2:'🥉',g:'1/16',d:'3 июля',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-07-03T20:00:00'),isPlayoff:true},
+  {id:114,t1:'2-й Гр.J',f1:'🥈',t2:'2-й Гр.K',f2:'🥈',g:'1/16',d:'3 июля',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-07-03T20:00:00'),isPlayoff:true},
+  {id:115,t1:'1-й Гр.L',f1:'🏅',t2:'2-й Гр.L',f2:'🥈',g:'1/16',d:'3 июля',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-07-03T23:00:00'),isPlayoff:true},
+  {id:116,t1:'3-й H/I/J/K',f1:'🥉',t2:'2-й Гр.F',f2:'🥈',g:'1/16',d:'4 июля',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-07-04T20:00:00'),isPlayoff:true},
+  {id:201,t1:'Победитель M101',f1:'⚽',t2:'Победитель M102',f2:'⚽',g:'1/8',d:'5 июля',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-07-05T20:00:00'),isPlayoff:true},
+  {id:202,t1:'Победитель M103',f1:'⚽',t2:'Победитель M104',f2:'⚽',g:'1/8',d:'5 июля',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-07-05T23:00:00'),isPlayoff:true},
+  {id:203,t1:'Победитель M105',f1:'⚽',t2:'Победитель M106',f2:'⚽',g:'1/8',d:'6 июля',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-07-06T20:00:00'),isPlayoff:true},
+  {id:204,t1:'Победитель M107',f1:'⚽',t2:'Победитель M108',f2:'⚽',g:'1/8',d:'7 июля',st:'Скоро',s1:null,s2:null,kickoff:new Date('2026-07-07T20:00:00'),isPlayoff:true},
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let LEADERS=[];
+let cu=null,preds={},amode='login',cmid=null,mf='a',lt='t',mstage='group';
+let etoChoice=null; // 'regular','extra','penalty'
+let bannerMode='text'; // 'text' or 'draw'
+let bannerText='🏆 Добро пожаловать на платформу прогнозов ЧМ-2026!';
+let bannerDrawing=null; // base64 of canvas drawing
+// per-user storage (localStorage simulation with in-memory fallback)
+let userDB={}; // {nick:{password,email,avatar,countryFlag,countryName,playoffPrediction,playoffLocked}}
+let playoffUnlocked={}; // {nick:true}
+
+// ============================================================
+// BANNER
+// ============================================================
+let drawing=false,drawCtx=null,lastX=0,lastY=0;
+function initBannerCanvas(){
+  const c=document.getElementById('banner-canvas');
+  drawCtx=c.getContext('2d');
+  c.addEventListener('mousedown',e=>{drawing=true;[lastX,lastY]=getPos(c,e)});
+  c.addEventListener('mousemove',e=>{
+    if(!drawing)return;
+    const [x,y]=getPos(c,e);
+    drawCtx.strokeStyle='#F5C518';drawCtx.lineWidth=2;drawCtx.lineCap='round';
+    drawCtx.beginPath();drawCtx.moveTo(lastX,lastY);drawCtx.lineTo(x,y);drawCtx.stroke();
+    [lastX,lastY]=[x,y];
+  });
+  c.addEventListener('mouseup',()=>drawing=false);
+  c.addEventListener('mouseleave',()=>drawing=false);
+  // touch
+  c.addEventListener('touchstart',e=>{e.preventDefault();drawing=true;[lastX,lastY]=getPos(c,e.touches[0])});
+  c.addEventListener('touchmove',e=>{
+    e.preventDefault();
+    if(!drawing)return;
+    const [x,y]=getPos(c,e.touches[0]);
+    drawCtx.strokeStyle='#F5C518';drawCtx.lineWidth=2;drawCtx.lineCap='round';
+    drawCtx.beginPath();drawCtx.moveTo(lastX,lastY);drawCtx.lineTo(x,y);drawCtx.stroke();
+    [lastX,lastY]=[x,y];
+  });
+  c.addEventListener('touchend',()=>drawing=false);
+}
+function getPos(c,e){const r=c.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top];}
+function toggleBannerMode(m){
+  bannerMode=m;
+  const txt=document.getElementById('banner-text');
+  const canvas=document.getElementById('banner-canvas');
+  if(m==='text'){txt.style.display='block';canvas.classList.remove('on');}
+  else{txt.style.display='none';canvas.classList.add('on');if(!drawCtx)initBannerCanvas();}
+}
+function saveBanner(){
+  if(bannerMode==='draw'){
+    bannerDrawing=document.getElementById('banner-canvas').toDataURL();
+    ntf('Рисунок сохранён!');
+  } else {
+    ntf('Текст баннера сохранён!');
+  }
+}
+function clearBanner(){
+  if(bannerMode==='draw'&&drawCtx){
+    drawCtx.clearRect(0,0,document.getElementById('banner-canvas').width,document.getElementById('banner-canvas').height);
+    bannerDrawing=null;
+  } else {
+    document.getElementById('banner-text').textContent=bannerText;
+  }
+}
+function adminSetBanner(){
+  const v=document.getElementById('a-banner').value.trim();
+  if(!v)return;
+  bannerText=v;
+  document.getElementById('banner-text').textContent=v;
+  ntf('Баннер обновлён!');
+}
+
+// ============================================================
+// SCORING
+// ============================================================
+// Returns {total, breakdown:[]}
+function cp(ps1,ps2,rs1,rs2){
+  let pts=0, breakdown=[];
+  if(ps1===rs1&&ps2===rs2){return{total:5,breakdown:['точный счёт +5']};}
+  const pd=ps1-ps2,rd=rs1-rs2,pw=Math.sign(pd),rw=Math.sign(rd);
+  if(pw===rw){pts+=2;breakdown.push('исход +2');}
+  if(pw===rw&&pd===rd){pts+=1;breakdown.push('разница +1');}// should not happen since no exact score
+  if(pw===rw&&pd!==rd){
+    // diff in diff already counted via outcome; check goal differences
+    if(ps1===rs1){pts+=1;breakdown.push('гол хозяев +1');}
+    if(ps2===rs2){pts+=1;breakdown.push('гол гостей +1');}
+  }
+  // If outcome correct but not exact score - check individual goals
+  if(pw!==rw){
+    // outcome wrong
+    if(ps1===rs1){pts+=1;breakdown.push('гол хозяев +1');}
+    if(ps2===rs2){pts+=1;breakdown.push('гол гостей +1');}
+  }
+  return{total:pts,breakdown};
+}
+// Proper scoring per table:
+// +5 exact score
+// +2 correct outcome (W/D/L)
+// +1 correct goal diff (on top of outcome)
+// +1 exact host goals
+// +1 exact away goals
+function calcPts(ps1,ps2,rs1,rs2){
+  if(ps1===rs1&&ps2===rs2)return 5;
+  const pd=ps1-ps2,rd=rs1-rs2,pw=Math.sign(pd),rw=Math.sign(rd);
+  let pts=0;
+  if(pw===rw)pts+=2;
+  if(pw===rw&&pd===rd)pts+=1; // correct diff = +1 bonus on top of +2
+  if(ps1===rs1)pts+=1;
+  if(ps2===rs2)pts+=1;
+  return pts;
+}
+
+function isMatchOpen(m){
+  // closed 30 min before kickoff
+  if(!m.kickoff)return m.st==='Скоро';
+  return(m.kickoff.getTime()-Date.now())>30*60*1000&&m.st==='Скоро';
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function sp(p){
+  document.querySelectorAll('.pg').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.nt').forEach(x=>x.classList.remove('on'));
+  document.getElementById('p-'+p).classList.add('on');
+  const tabMap={home:0,matches:1,groups:2,playoff:3,teams:4,predict:5,lb:6,forum:7};
+  const tabs=document.querySelectorAll('.nt');
+  if(tabMap[p]!==undefined)tabs[tabMap[p]].classList.add('on');
+  const renders={home:rh,matches:rm,groups:rg,teams:rt,predict:rp,lb:rlb,playoff:()=>{spo('bracket');rbr();},forum:rforum,admin:radmin,profile:rpf};
+  if(renders[p])renders[p]();
+}
+
+// ============================================================
+// MATCHES
+// ============================================================
+function mc(m,slim){
+  const hp=preds[m.id];
+  const sc=m.st==='Сыгран';
+  const pts=hp&&sc?calcPts(hp.s1,hp.s2,m.s1,m.s2):null;
+  const open=isMatchOpen(m);
+  const closedNote=!open&&m.st==='Скоро'?'<span class="bd" style="background:rgba(239,68,68,.1);color:#f87171;font-size:9px">🔒 30 мин</span>':'';
+  return`<div class="mc${hp?' pred':''}" onclick="opm(${m.id})">
+    <div style="min-width:${slim?'50px':'70px'};font-size:10px;color:var(--mt);line-height:1.4">${m.g}<br>${m.d}</div>
+    <div class="mct">
+      <span class="mf">${m.f1}</span>
+      <span class="mtn">${m.t1}</span>
+      <span class="msc${m.st==='Скоро'?' nd':''}">${m.st==='Скоро'?'vs':(m.s1+':'+m.s2)}</span>
+      <span class="mtn">${m.t2}</span>
+      <span class="mf">${m.f2}</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:3px;flex-wrap:wrap;justify-content:flex-end;min-width:80px">
+      ${closedNote}
+      <span class="bd ${sc?'bdone':m.st==='Идёт'?'bl':'bsoon'}">${sc?'✓':m.st==='Идёт'?'●':'Скоро'}</span>
+      ${hp?`<span class="bd bpred">${hp.s1}:${hp.s2}</span>`:''}
+      ${pts!==null&&pts>0?`<span class="spts pts${pts===5?5:pts>=2?2:1}">+${pts}б</span>`:''}
+    </div>
+  </div>`;
+}
+
+function rh(){
+  const done=GROUP_M.filter(m=>m.st==='Сыгран').slice(-2);
+  document.getElementById('h-done').innerHTML=done.length?done.map(m=>mc(m,true)).join(''):'<div style="color:var(--mt);font-size:12px;padding:.5rem">Нет сыгранных матчей</div>';
+  const soon=GROUP_M.filter(m=>m.st==='Скоро').slice(0,3);
+  document.getElementById('h-soon').innerHTML=soon.map(m=>mc(m,true)).join('');
+  const top=LEADERS.length?[...LEADERS].sort((a,b)=>b.pts-a.pts).slice(0,5):[];
+  document.getElementById('h-top').innerHTML=top.length?`<table style="width:100%;border-collapse:collapse;font-size:11px">
+    <tr style="border-bottom:1px solid var(--br)"><th style="padding:4px 5px;color:var(--mt);font-weight:500;font-size:10px">#</th><th style="padding:4px 5px;color:var(--mt);font-weight:500;font-size:10px;text-align:left">Участник</th><th style="padding:4px 5px;color:var(--mt);font-weight:500;font-size:10px;text-align:right">Баллы</th></tr>
+    ${top.map((u,i)=>`<tr style="cursor:pointer" onclick="openPublicProfile('${u.nick}')"><td style="padding:5px;color:${i===0?'var(--g)':i===1?'#94a3b8':i===2?'#cd7c3a':'var(--mt)'};font-weight:700">${i+1}</td><td style="padding:5px">${renderUserCell(u.nick)}</td><td style="padding:5px;text-align:right;font-weight:700;color:var(--g)">${u.pts}</td></tr>`).join('')}
+  </table>`:'<div style="color:var(--mt);font-size:12px;padding:.5rem;text-align:center">Таблица пуста — турнир только начался!</div>';
+}
+
+function sm(s){mstage=s;document.getElementById('sm-g').className='tb'+(s==='group'?' on':'');document.getElementById('sm-p').className='tb'+(s==='playoff'?' on':'');rm();}
+function rm(){
+  const list=mstage==='group'?GROUP_M:PLAYOFF_M;
+  const f=mf==='u'?list.filter(m=>m.st==='Скоро'||m.st==='Идёт'):mf==='d'?list.filter(m=>m.st==='Сыгран'):list;
+  document.getElementById('all-m').innerHTML=f.length?f.map(m=>mc(m,false)).join(''):'<div style="text-align:center;padding:2rem;color:var(--mt)">Нет матчей</div>';
+}
+function fm(f){mf=f;['a','u','d'].forEach(x=>{const b=document.getElementById('f'+x);if(b)b.className='btn '+(f===x?'bb':'bo');});rm();}
+
+// ============================================================
+// GROUPS
+// ============================================================
+function rg(){
+  document.getElementById('groups-div').innerHTML=Object.entries(GRP).map(([grp,teams])=>{
+    const s=[...teams].sort((a,b)=>(b.pts||0)-(a.pts||0)||((b.gf-b.ga)||0)-((a.gf-a.ga)||0));
+    return`<div class="gc"><div class="gh">ГРУППА ${grp}</div><table class="gt">
+      <tr><th>Команда</th><th>И</th><th>О</th><th>±</th></tr>
+      ${s.map((t,i)=>`<tr${i<2?' class="leader"':''}><td><span style="font-size:14px">${t.f}</span> ${t.n}</td><td>${(t.w||0)+(t.d||0)+(t.l||0)}</td><td>${t.pts||0}</td><td>${(t.gf||0)-(t.ga||0)>=0?'+'+(t.gf||0)-(t.ga||0):(t.gf||0)-(t.ga||0)}</td></tr>`).join('')}
+    </table></div>`;
+  }).join('');
+}
+
+// ============================================================
+// TEAMS
+// ============================================================
+function rt(){
+  const uda=cu&&userDB[cu]?userDB[cu]:null;
+  const selC=uda?uda.countryName:null;
+  document.getElementById('teams-div').innerHTML=Object.values(GRP).flat().map(t=>`<div class="tc${t.n===selC?' selected-country':''}" onclick="selectCountry('${t.n}','${t.f}')">
+    <div class="tf">${t.f}</div>
+    <div class="tn">${t.n}</div>
+    <div class="tg2">Группа ${t.g}</div>
+    ${t.n===selC?'<div style="font-size:9px;color:var(--g);margin-top:.2rem">✓ Ваша страна</div>':''}
+  </div>`).join('');
+}
+function selectCountry(name,flag){
+  if(!cu){oA('login');return;}
+  if(!userDB[cu])userDB[cu]={};
+  userDB[cu].countryName=name;
+  userDB[cu].countryFlag=flag;
+  rt();
+  updateNavNick();
+  ntf(`Выбрана страна: ${flag} ${name}`);
+}
+
+// ============================================================
+// PREDICT
+// ============================================================
+function rp(){
+  if(!cu){document.getElementById('pnote').style.display='block';document.getElementById('predict-div').innerHTML=`<div style="text-align:center;padding:2rem;color:var(--mt)">Войдите для прогнозов</div>`;return;}
+  document.getElementById('pnote').style.display='none';
+  const upcoming=GROUP_M.filter(m=>isMatchOpen(m));
+  document.getElementById('predict-div').innerHTML=`<div class="bk bk-b" style="margin-bottom:.625rem">Нажмите на матч, чтобы сделать прогноз. Прогноз закрывается за 30 минут до начала.</div>`+upcoming.map(m=>mc(m,false)).join('');
+}
+
+// ============================================================
+// LEADERBOARD
+// ============================================================
+function rlb(){rlbt();rlbp();}
+function renderUserCell(nick){
+  const ud=userDB[nick]||{};
+  const avatar=ud.avatar?`<img src="${ud.avatar}" style="width:24px;height:24px;border-radius:50%;object-fit:cover">`:`<div class="av" style="background:${nick==='TSZINAR'?'#f59e0b':'var(--b)'}">${nick[0]}</div>`;
+  const flag=ud.countryFlag?`<span class="flag-badge">${ud.countryFlag}</span>`:'';
+  return`<div class="uc" style="cursor:pointer" onclick="openPublicProfile('${nick}')">${avatar}<span>${flag}${nick}</span></div>`;
+}
+function rlbt(){
+  const s=[...LEADERS].sort((a,b)=>b.pts-a.pts);
+  document.getElementById('lb-t').innerHTML=s.length?`<table><thead><tr><th>#</th><th>Участник</th><th style="text-align:center">Прогнозов</th><th style="text-align:center">Точных</th><th style="text-align:right">Баллы</th></tr></thead><tbody>
+  ${s.map((u,i)=>`<tr><td class="${['r1','r2','r3'][i]||''}" style="width:30px">${i+1}</td>
+    <td>${renderUserCell(u.nick)}${u.adm?'<span style="font-size:9px;background:rgba(245,159,11,.15);color:#f59e0b;padding:1px 4px;border-radius:3px;margin-left:4px">ADMIN</span>':''}</td>
+    <td style="text-align:center;color:var(--mt)">${u.total||0}</td><td style="text-align:center;color:#4ade80">${u.exact||0}</td>
+    <td style="text-align:right;font-weight:700;color:var(--g)">${u.pts||0}</td></tr>`).join('')}
+  </tbody></table>`:'<div style="text-align:center;padding:2rem;color:var(--mt)">Таблица пуста. Зарегистрируйтесь и начинайте прогнозировать!</div>';
+}
+function rlbp(){
+  const q=LEADERS.filter(u=>u.m>=5);const excl=LEADERS.filter(u=>u.m<5);
+  const s=[...q].sort((a,b)=>b.pct-a.pct);
+  document.getElementById('lb-p').innerHTML=`<div style="font-size:11px;color:var(--mt);margin-bottom:.625rem;background:rgba(255,255,255,.03);padding:.4rem .7rem;border-radius:5px">
+    Минимум 5 матчей. ${excl.length?'Не попали: '+excl.map(u=>u.nick).join(', '):'Все участники квалифицированы.'}</div>
+    ${s.length?`<table><thead><tr><th>#</th><th>Участник</th><th style="text-align:center">Матчей</th><th style="text-align:center">Точных</th><th style="text-align:right">% угад.</th></tr></thead><tbody>
+    ${s.map((u,i)=>`<tr><td class="${['r1','r2','r3'][i]||''}" style="width:30px">${i+1}</td>
+      <td>${renderUserCell(u.nick)}</td>
+      <td style="text-align:center;color:var(--mt)">${u.m||0}</td><td style="text-align:center;color:#4ade80">${u.exact||0}</td>
+      <td style="text-align:right;font-weight:700;color:#4ade80">${u.pct||0}%</td></tr>`).join('')}
+    </tbody></table>`:'<div style="text-align:center;padding:2rem;color:var(--mt)">Никто ещё не сыграл 5 матчей.</div>'}`;
+}
+function slt(t){lt=t;document.getElementById('lt-t').className='tb'+(t==='t'?' on':'');document.getElementById('lt-p').className='tb'+(t==='p'?' on':'');document.getElementById('lb-t').style.display=t==='t'?'':'none';document.getElementById('lb-p').style.display=t==='p'?'':'none';}
+
+// ============================================================
+// BRACKET
+// ============================================================
+function spo(v){
+  document.getElementById('spo-b').className='tb'+(v==='bracket'?' on':'');
+  document.getElementById('spo-p').className='tb'+(v==='predict'?' on':'');
+  document.getElementById('po-bracket-view').style.display=v==='bracket'?'block':'none';
+  document.getElementById('po-predict-view').style.display=v==='predict'?'block':'none';
+  if(v==='predict')renderPlayoffPredict();
+}
+
+function rbr(){
+  const r16=PLAYOFF_M.filter(m=>m.g==='1/16');
+  const r8=PLAYOFF_M.filter(m=>m.g==='1/8');
+  let h='<div class="brow">';
+  h+=`<div class="brd"><div class="brt">1/16 ФИНАЛА (28.06–3.07)</div>${r16.map(m=>`<div class="brm"><div class="brt2">${m.f1} ${m.t1}</div><div class="brt2">${m.f2} ${m.t2}</div></div>`).join('')}</div>`;
+  h+=`<div class="brd"><div class="brt">1/8 ФИНАЛА (4–7 июля)</div>${Array(8).fill(0).map((_,i)=>`<div class="brm"><div class="brt2">Победитель ${101+Math.floor(i/2)*2}</div><div class="brt2">Победитель ${102+Math.floor(i/2)*2}</div></div>`).join('')}</div>`;
+  h+=`<div class="brd"><div class="brt">1/4 (9–11 июля)</div>${Array(4).fill(0).map(()=>`<div class="brm"><div class="brt2">—</div><div class="brt2">—</div></div>`).join('')}</div>`;
+  h+=`<div class="brd"><div class="brt">ПОЛУФИНАЛ (14–15 июля)</div>${Array(2).fill(0).map(()=>`<div class="brm"><div class="brt2">—</div><div class="brt2">—</div></div>`).join('')}</div>`;
+  h+=`<div class="brd"><div class="brt">🥉 МАТЧ ЗА 3е (18 июля)</div><div class="brm"><div class="brt2">—</div><div class="brt2">—</div></div></div>`;
+  h+=`<div class="brd"><div class="brt">🏆 ФИНАЛ (19 июля)</div><div class="brm"><div class="brt2 w">?</div><div class="brt2">?</div></div></div>`;
+  h+='</div>';
+  document.getElementById('bracket-div').innerHTML=h;
+}
+
+// ============================================================
+// PLAYOFF PREDICTION (new feature #4)
+// ============================================================
+// Structure: user places group winners/runners-up in slots (drag & drop),
+// then picks winners of each round
+let ppState={
+  groupRankings:{}, // {A:[teamName1,teamName2,teamName3,teamName4], ...}
+  r16Picks:{}, // {matchIdx: winnerTeamName}
+  r8Picks:{},
+  r4Picks:{},
+  sfPicks:{}, // semi-final
+  finalPick:null,
+  thirdPick:null
+};
+
+function getGroupTop2(){
+  const res={};
+  Object.entries(GRP).forEach(([g,teams])=>{
+    const sorted=[...teams].sort((a,b)=>(b.pts||0)-(a.pts||0));
+    res[g]={first:sorted[0]?{n:sorted[0].n,f:sorted[0].f}:null,second:sorted[1]?{n:sorted[1].n,f:sorted[1].f}:null};
+  });
+  return res;
+}
+
+function renderPlayoffPredict(){
+  if(!cu){
+    document.getElementById('po-predict-inner').innerHTML='<div class="bk bk-y">Войдите в аккаунт, чтобы делать прогнозы</div>';
+    return;
+  }
+  const ud=userDB[cu]||{};
+  const locked=ud.playoffLocked&&!playoffUnlocked[cu];
+  const saved=ud.playoffPrediction;
+
+  if(locked&&saved){
+    // Show saved prediction read-only
+    renderSavedPlayoffPrediction(saved);
+    return;
+  }
+
+  // Show interactive prediction builder
+  const grpTop=getGroupTop2();
+  let h=`<div class="bk bk-b">Расставьте команды из групп по местам, затем выберите победителей каждого раунда. После сохранения прогноз будет заблокирован до разрешения администратора.</div>`;
+
+  // Step 1: group table rankings
+  h+=`<div style="margin-bottom:1rem"><div class="stitle">Шаг 1 — Итоговые места в группах</div>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem">`;
+  Object.entries(GRP).forEach(([g,teams])=>{
+    const sorted=[...teams].sort((a,b)=>(b.pts||0)-(a.pts||0));
+    h+=`<div style="background:var(--sf);border:1px solid var(--br);border-radius:8px;overflow:hidden">
+      <div style="background:var(--b);padding:.3rem .6rem;font-size:10px;font-weight:700;color:#fff">Группа ${g}</div>
+      ${sorted.map((t,i)=>`<div style="display:flex;align-items:center;gap:.4rem;padding:.4rem .6rem;border-top:1px solid var(--br);font-size:11px">
+        <span style="color:${i<2?'var(--g)':'var(--mt)'};font-weight:700;min-width:14px">${i+1}</span>
+        <span style="font-size:14px">${t.f}</span>
+        <span style="color:${i<2?'#fff':'var(--mt)'}">${t.n}</span>
+        <span style="margin-left:auto;font-size:10px;color:var(--mt)">${t.pts||0} оч.</span>
+      </div>`).join('')}
+    </div>`;
+  });
+  h+=`</div></div>`;
+
+  // Step 2: R16 pairs - pick winner
+  h+=`<div style="margin-bottom:1rem"><div class="stitle">Шаг 2 — Выберите победителей 1/16</div>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.4rem">`;
+  PLAYOFF_M.filter(m=>m.g==='1/16').forEach((m,i)=>{
+    const pick=(ppState.r16Picks&&ppState.r16Picks[m.id])||null;
+    h+=`<div style="background:var(--sf);border:1px solid var(--br);border-radius:7px;padding:.5rem .75rem">
+      <div style="font-size:10px;color:var(--mt);margin-bottom:.35rem">${m.d}</div>
+      <div style="display:flex;gap:.3rem">
+        <button class="btn${pick===m.t1?' bb':' bo'}" style="flex:1;font-size:10px" onclick="pickR16(${m.id},'t1')">${m.f1} ${m.t1}</button>
+        <button class="btn${pick===m.t2?' bb':' bo'}" style="flex:1;font-size:10px" onclick="pickR16(${m.id},'t2')">${m.f2} ${m.t2}</button>
+      </div>
+    </div>`;
+  });
+  h+=`</div></div>`;
+
+  // Save button
+  h+=`<div style="display:flex;gap:.5rem;margin-top:.5rem">
+    <button class="btn bg" onclick="savePlayoffPrediction()">💾 Сохранить прогноз (заблокируется)</button>
+  </div>`;
+
+  document.getElementById('po-predict-inner').innerHTML=h;
+}
+
+function pickR16(matchId, side){
+  const m=PLAYOFF_M.find(x=>x.id===matchId);
+  if(!m)return;
+  if(!ppState.r16Picks)ppState.r16Picks={};
+  ppState.r16Picks[matchId]=side==='t1'?m.t1:m.t2;
+  renderPlayoffPredict();
+}
+
+function savePlayoffPrediction(){
+  if(!cu)return;
+  if(!userDB[cu])userDB[cu]={};
+  userDB[cu].playoffPrediction=JSON.parse(JSON.stringify(ppState));
+  userDB[cu].playoffLocked=true;
+  delete playoffUnlocked[cu];
+  ntf('Прогноз плей-офф сохранён и заблокирован!');
+  renderPlayoffPredict();
+}
+
+function renderSavedPlayoffPrediction(saved){
+  let h=`<div class="bk bk-y">🔒 Прогноз сохранён. Для изменения требуется разрешение администратора.</div>`;
+  h+=`<div class="stitle">Ваши прогнозы 1/16 финала</div>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.4rem">`;
+  if(saved.r16Picks){
+    PLAYOFF_M.filter(m=>m.g==='1/16').forEach(m=>{
+      const pick=saved.r16Picks[m.id];
+      h+=`<div style="background:var(--sf);border:1px solid var(--b);border-radius:7px;padding:.5rem .75rem;font-size:11px">
+        <div style="color:var(--mt);font-size:10px">${m.t1} vs ${m.t2}</div>
+        <div style="color:var(--g);font-weight:600;margin-top:.2rem">✓ ${pick||'—'}</div>
+      </div>`;
+    });
+  }
+  h+=`</div>`;
+  document.getElementById('po-predict-inner').innerHTML=h;
+}
+
+// ============================================================
+// FORUM
+// ============================================================
+let FORUM=[
+  {id:1,title:'Кто станет чемпионом?',author:'система',time:'12 июн 10:00',posts:[{id:1,author:'система',time:'12 июн 10:00',text:'Делитесь своими прогнозами на победителя ЧМ-2026!',adm:false,img:null}]},
+  {id:2,title:'Лучший матч группового этапа',author:'система',time:'12 июн 10:01',posts:[{id:1,author:'система',time:'12 июн 10:01',text:'Какой матч вас удивил больше всего?',adm:false,img:null}]},
+];
+let forumIdx=3,curThread=null;
+
+function rforum(){showThreadList();}
+function showThreadList(){
+  curThread=null;
+  document.getElementById('forum-list').style.display='block';
+  document.getElementById('forum-thread').style.display='none';
+  document.getElementById('forum-list').innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.875rem">
+      <div class="stitle">Форум</div>
+      <button class="btn bg" onclick="newThread()">+ Создать тему</button>
+    </div>
+    ${FORUM.map(t=>`<div class="fthread" onclick="openThread(${t.id})">
+      <div class="ft-title">${t.title}</div>
+      <div class="ft-meta">👤 ${t.author} &nbsp;·&nbsp; 💬 ${t.posts.length} сообщ. &nbsp;·&nbsp; ${t.time}</div>
+    </div>`).join('')}
+    ${FORUM.length===0?'<div style="text-align:center;padding:2rem;color:var(--mt)">Нет тем. Создайте первую!</div>':''}`;
+}
+function openThread(id){
+  curThread=id;
+  document.getElementById('forum-list').style.display='none';
+  document.getElementById('forum-thread').style.display='block';
+  renderThread();
+}
+function renderThread(){
+  const t=FORUM.find(x=>x.id===curThread);if(!t)return;
+  document.getElementById('forum-thread').innerHTML=`
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.875rem">
+      <button class="btn bo" onclick="showThreadList()">← Назад</button>
+      <div class="stitle" style="margin:0">${t.title}</div>
+      ${cu&&cu==='TSZINAR'?`<button class="btn br-btn" style="margin-left:auto" onclick="deleteThread(${t.id})">Удалить тему</button>`:''}
+    </div>
+    <div id="thread-posts">${t.posts.map(p=>fpost(p)).join('')}</div>
+    ${cu?`<div style="margin-top:.875rem">
+      <textarea id="reply-txt" placeholder="Ваше сообщение..."></textarea>
+      <div style="display:flex;align-items:center;gap:.5rem;margin-top:.4rem">
+        <label style="font-size:11px;color:var(--mt);cursor:pointer;padding:5px 11px;border:1px solid var(--br);border-radius:5px;white-space:nowrap">
+          📷 Прикрепить фото
+          <input type="file" id="reply-img" accept="image/*" style="display:none" onchange="previewReplyImg(this)">
+        </label>
+        <div id="reply-img-preview" style="font-size:11px;color:var(--mt)"></div>
+        <button class="btn bg" onclick="addReply(${t.id})">Отправить</button>
+      </div>
+    </div>`:'<div class="bk bk-y" style="margin-top:.75rem">Войдите, чтобы отвечать в теме</div>'}`;
+}
+function previewReplyImg(input){
+  const file=input.files[0];
+  if(!file)return;
+  const preview=document.getElementById('reply-img-preview');
+  preview.textContent='📷 '+file.name;
+}
+function fpost(p){
+  const isAdm=p.author==='TSZINAR'||p.adm;
+  const ud=userDB[p.author]||{};
+  const avatarHtml=ud.avatar
+    ?`<img src="${ud.avatar}" style="width:28px;height:28px;border-radius:50%;object-fit:cover">`
+    :`<div class="fp-av" style="background:${isAdm?'#f59e0b':'var(--b)'}">${p.author[0]}</div>`;
+  const flag=ud.countryFlag?`<span style="font-size:12px">${ud.countryFlag}</span>`:'';
+  return`<div class="fpost">
+    <div class="fp-header">
+      ${avatarHtml}
+      <span class="fp-nick">${flag}${p.author}${isAdm?'<span style="font-size:9px;background:rgba(245,159,11,.15);color:#f59e0b;padding:1px 4px;border-radius:3px;margin-left:4px">ADMIN</span>':''}</span>
+      <span class="fp-time">${p.time}</span>
+      ${cu&&cu==='TSZINAR'&&p.id!==1?`<button class="btn br-btn" style="padding:2px 7px;font-size:10px;margin-left:.25rem" onclick="deletePost(${curThread},${p.id})">✕</button>`:''}
+    </div>
+    <div class="fp-text">${p.text}</div>
+    ${p.img?`<img src="${p.img}" class="fp-img" onclick="window.open(this.src,'_blank')">`:''}
+  </div>`;
+}
+function addReply(tid){
+  const txt=document.getElementById('reply-txt').value.trim();
+  const imgInput=document.getElementById('reply-img');
+  if(!txt&&(!imgInput||!imgInput.files[0])){ntf('Введите сообщение или прикрепите фото');return;}
+  const t=FORUM.find(x=>x.id===tid);if(!t)return;
+  const now=new Date();const ts=now.getDate()+' '+['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'][now.getMonth()]+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  const pid=t.posts.length?Math.max(...t.posts.map(p=>p.id))+1:1;
+  const addPost=(imgData)=>{
+    t.posts.push({id:pid,author:cu,time:ts,text:txt,adm:cu==='TSZINAR',img:imgData||null});
+    renderThread();ntf('Сообщение отправлено!');
+  };
+  if(imgInput&&imgInput.files[0]){
+    const reader=new FileReader();
+    reader.onload=e=>addPost(e.target.result);
+    reader.readAsDataURL(imgInput.files[0]);
+  } else {
+    addPost(null);
+  }
+}
+function newThread(){
+  if(!cu){oA('login');return;}
+  const title=prompt('Название темы:');
+  if(!title||!title.trim())return;
+  const txt=prompt('Первое сообщение:');
+  if(!txt||!txt.trim())return;
+  const now=new Date();const ts=now.getDate()+' '+['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'][now.getMonth()]+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  FORUM.unshift({id:forumIdx++,title:title.trim(),author:cu,time:ts,posts:[{id:1,author:cu,time:ts,text:txt.trim(),adm:cu==='TSZINAR',img:null}]});
+  showThreadList();ntf('Тема создана!');
+}
+function deleteThread(id){
+  if(!confirm('Удалить тему?'))return;
+  const i=FORUM.findIndex(x=>x.id===id);if(i>-1)FORUM.splice(i,1);
+  showThreadList();ntf('Тема удалена');
+}
+function deletePost(tid,pid){
+  const t=FORUM.find(x=>x.id===tid);if(!t)return;
+  const i=t.posts.findIndex(p=>p.id===pid);if(i>-1)t.posts.splice(i,1);
+  renderThread();ntf('Сообщение удалено');
+}
+
+// ============================================================
+// PUBLIC PROFILE
+// ============================================================
+function openPublicProfile(nick){
+  if(nick===cu){sp('profile');return;}
+  const u=LEADERS.find(x=>x.nick===nick)||{pts:0,total:0,exact:0};
+  const ud=userDB[nick]||{};
+  const avatarHtml=ud.avatar
+    ?`<img src="${ud.avatar}" style="width:60px;height:60px;border-radius:50%;object-fit:cover;margin:0 auto .875rem;display:block">`
+    :`<div class="av" style="width:60px;height:60px;font-size:20px;margin:0 auto .875rem;background:${nick==='TSZINAR'?'#f59e0b':'var(--b)'}">${nick[0]}</div>`;
+  const flag=ud.countryFlag?`<span style="font-size:20px">${ud.countryFlag}</span>`:'';
+  const pp=ud.playoffPrediction;
+
+  let html=`<div style="text-align:center;margin-bottom:1rem">
+    ${avatarHtml}
+    <div style="font-size:16px;font-weight:700;color:#fff">${flag} ${nick}</div>
+    <div style="font-size:11px;color:var(--g);margin:.2rem 0">${nick==='TSZINAR'?'👑 Администратор':'⚽ Прогнозист'}</div>
+    ${ud.countryName?`<div style="font-size:11px;color:var(--mt)">🌍 ${ud.countryName}</div>`:''}
+  </div>
+  <div style="display:flex;gap:.5rem;margin-bottom:1rem">
+    <div class="hs" style="flex:1"><div class="hs-v">${u.pts||0}</div><div class="hs-l">Баллы</div></div>
+    <div class="hs" style="flex:1"><div class="hs-v">${u.total||0}</div><div class="hs-l">Прогнозов</div></div>
+    <div class="hs" style="flex:1"><div class="hs-v">${u.exact||0}</div><div class="hs-l">Точных</div></div>
+  </div>`;
+
+  if(pp&&pp.r16Picks&&Object.keys(pp.r16Picks).length>0){
+    html+=`<div class="stitle">Прогноз плей-офф</div>`;
+    html+=`<div style="display:flex;flex-direction:column;gap:.3rem">`;
+    PLAYOFF_M.filter(m=>m.g==='1/16').forEach(m=>{
+      const pick=pp.r16Picks[m.id];
+      if(pick)html+=`<div style="display:flex;justify-content:space-between;font-size:11px;padding:.3rem .5rem;background:var(--sf);border-radius:5px">
+        <span style="color:var(--mt)">${m.t1} vs ${m.t2}</span>
+        <span style="color:var(--g);font-weight:600">${pick}</span>
+      </div>`;
+    });
+    html+=`</div>`;
+  }
+
+  document.getElementById('pub-profile-content').innerHTML=html;
+  document.getElementById('pub-profile-modal').classList.add('on');
+}
+
+// ============================================================
+// PREDICT MODAL
+// ============================================================
+function opm(id){
+  const m=[...GROUP_M,...PLAYOFF_M].find(x=>x.id===id);
+  if(!m)return;
+  if(m.st!=='Скоро'){ntf(m.st==='Идёт'?'Матч идёт — прогноз заблокирован':'Матч завершён');return;}
+  if(!isMatchOpen(m)){ntf('⏰ Прогноз закрыт — до матча меньше 30 минут');return;}
+  if(!cu){oA('login');return;}
+  cmid=id;etoChoice=null;
+  document.getElementById('pm-f1').textContent=m.f1;document.getElementById('pm-f2').textContent=m.f2;
+  document.getElementById('pm-n1').textContent=m.t1;document.getElementById('pm-n2').textContent=m.t2;
+  document.getElementById('pm-t').textContent=m.t1+' — '+m.t2;
+  const ex=preds[id];
+  document.getElementById('pi1').value=ex?ex.s1:1;
+  document.getElementById('pi2').value=ex?ex.s2:0;
+  // Show ETO box only for playoff matches
+  const etoBox=document.getElementById('eto-box');
+  etoBox.className='eto-box'+(m.isPlayoff?' on':'');
+  if(ex&&ex.eto){setETO(ex.eto,true);}else{etoChoice=null;resetETOBtns();}
+  upv();document.getElementById('pm').classList.add('on');
+}
+function cpm(){document.getElementById('pm').classList.remove('on');}
+function resetETOBtns(){
+  ['eto-r','eto-e','eto-p'].forEach(id=>{const el=document.getElementById(id);if(el)el.className='';});
+}
+function setETO(choice,silent){
+  etoChoice=choice;
+  resetETOBtns();
+  const map={regular:'eto-r',extra:'eto-e',penalty:'eto-p'};
+  const el=document.getElementById(map[choice]);if(el)el.className='on';
+  if(!silent)upv();
+}
+function upv(){
+  const m=[...GROUP_M,...PLAYOFF_M].find(x=>x.id===cmid);
+  if(!m||m.st!=='Сыгран'){document.getElementById('pvw').innerHTML='Прогноз будет оценён после матча';return;}
+  const s1=+document.getElementById('pi1').value,s2=+document.getElementById('pi2').value;
+  const p=calcPts(s1,s2,m.s1,m.s2);
+  document.getElementById('pvw').innerHTML=`Счёт известен: <span>+${p} балл${p===1?'':p<5?'а':'ов'}</span>`;
+}
+function savep(){
+  const s1=+document.getElementById('pi1').value,s2=+document.getElementById('pi2').value;
+  const m=PLAYOFF_M.find(x=>x.id===cmid);
+  const data={s1,s2};
+  if(m&&m.isPlayoff&&s1===s2&&etoChoice&&etoChoice!=='regular'){
+    data.eto=etoChoice;
+  }
+  preds[cmid]=data;cpm();ntf('Прогноз: '+s1+':'+s2+' сохранён ✓');rh();
+}
+
+// ============================================================
+// ADMIN
+// ============================================================
+function radmin(){
+  if(cu!=='TSZINAR'){document.getElementById('p-admin').innerHTML='<div style="text-align:center;padding:3rem;color:var(--mt)">Доступ запрещён</div>';return;}
+  document.getElementById('banner-edit-btns').style.display='flex';
+  const sel=document.getElementById('a-mid');
+  if(sel){sel.innerHTML='<option value="">Выберите матч...</option>'+[...GROUP_M,...PLAYOFF_M].map(m=>`<option value="${m.id}">${m.g} | ${m.t1} — ${m.t2} (${m.d})</option>`).join('');}
+  renderAdminUsers();
+  renderAdminForum();
+}
+function renderAdminUsers(){
+  const el=document.getElementById('admin-users-list');if(!el)return;
+  el.innerHTML=LEADERS.length?`<table style="width:100%;border-collapse:collapse;font-size:11px;margin-bottom:.5rem">
+    <tr style="border-bottom:1px solid var(--br)"><th style="padding:5px 6px;text-align:left;color:var(--mt)">Участник</th><th style="padding:5px 6px;text-align:center;color:var(--mt)">Баллы</th><th style="padding:5px 6px;text-align:center;color:var(--mt)">Матчей</th><th style="padding:5px 6px;color:var(--mt)">Действия</th></tr>
+    ${LEADERS.map(u=>`<tr><td style="padding:5px 6px">${u.nick}</td><td style="padding:5px 6px;text-align:center;color:var(--g)">${u.pts}</td><td style="padding:5px 6px;text-align:center;color:var(--mt)">${u.m||0}</td>
+      <td style="padding:5px 6px;display:flex;gap:4px">
+        <button class="btn bb" style="padding:2px 7px;font-size:10px" onclick="adminAddPts('${u.nick}')">+Баллы</button>
+        <button class="btn br-btn" style="padding:2px 7px;font-size:10px" onclick="adminDeleteUser('${u.nick}')">Удалить</button>
+      </td></tr>`).join('')}
+  </table>`:'<div style="color:var(--mt);font-size:11px;padding:.5rem">Нет участников</div>';
+}
+function renderAdminForum(){
+  const el=document.getElementById('admin-forum-list');if(!el)return;
+  el.innerHTML=FORUM.map(t=>`<div style="display:flex;align-items:center;gap:.5rem;padding:.4rem .5rem;border-bottom:1px solid var(--br)">
+    <span style="flex:1;font-size:12px;color:#fff">${t.title}</span>
+    <span style="font-size:10px;color:var(--mt)">${t.posts.length} сообщ.</span>
+    <button class="btn br-btn" style="padding:2px 7px;font-size:10px" onclick="deleteThread(${t.id});renderAdminForum()">Удалить</button>
+  </div>`).join('');
+}
+function resetLB(){if(!confirm('Обнулить таблицу? Все баллы будут сброшены.'))return;LEADERS=[];renderAdminUsers();rh();ntf('Таблица обнулена!');}
+function adminSaveUser(){
+  const nick=document.getElementById('a-nick').value.trim();
+  const pts=+document.getElementById('a-pts').value||0;
+  const tot=+document.getElementById('a-tot').value||0;
+  const ex=+document.getElementById('a-ex').value||0;
+  const pct=+document.getElementById('a-pct').value||0;
+  const m=+document.getElementById('a-m').value||0;
+  if(!nick){ntf('Введите никнейм');return;}
+  const idx=LEADERS.findIndex(u=>u.nick===nick);
+  if(idx>-1)LEADERS[idx]={nick,pts,total:tot,exact:ex,pct,m};
+  else LEADERS.push({nick,pts,total:tot,exact:ex,pct,m});
+  renderAdminUsers();rh();ntf('Участник сохранён: '+nick);
+  ['a-nick','a-pts','a-tot','a-ex','a-pct','a-m'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+}
+function adminDeleteUser(nick){
+  if(!confirm('Удалить '+nick+'?'))return;
+  LEADERS=LEADERS.filter(u=>u.nick!==nick);
+  renderAdminUsers();rh();ntf('Удалён: '+nick);
+}
+function adminAddPts(nick){
+  const add=+prompt('Добавить баллов для '+nick+' (минус для списания):');
+  if(isNaN(add))return;
+  const u=LEADERS.find(x=>x.nick===nick);if(!u)return;
+  u.pts=Math.max(0,u.pts+add);
+  renderAdminUsers();rh();ntf((add>=0?'+':'')+add+' баллов для '+nick);
+}
+function adminSetScore(){
+  const mid=+document.getElementById('a-mid').value;
+  const s1=+document.getElementById('a-s1').value;
+  const s2=+document.getElementById('a-s2').value;
+  if(!mid){ntf('Выберите матч');return;}
+  const allM=[...GROUP_M,...PLAYOFF_M];
+  const m=allM.find(x=>x.id===mid);
+  if(!m)return;
+  m.s1=s1;m.s2=s2;m.st='Сыгран';
+  rh();ntf(`Счёт записан: ${m.t1} ${s1}:${s2} ${m.t2}`);
+}
+function adminUnlockPlayoff(){
+  const nick=document.getElementById('a-unlock-nick').value.trim();
+  if(!nick){
+    // Unlock all
+    Object.keys(userDB).forEach(n=>{if(userDB[n].playoffLocked)playoffUnlocked[n]=true;});
+    ntf('Прогноз плей-офф разблокирован для всех');
+  } else {
+    playoffUnlocked[nick]=true;
+    ntf('Прогноз разблокирован для: '+nick);
+  }
+  document.getElementById('a-unlock-nick').value='';
+}
+
+// ============================================================
+// PROFILE
+// ============================================================
+function rpf(){
+  if(!cu){document.getElementById('profile-div').innerHTML=`<div style="text-align:center;padding:3rem;color:var(--mt)">Войдите в аккаунт<br><br><button class="btn bg" onclick="oA('login')">Войти</button></div>`;return;}
+  const u=LEADERS.find(x=>x.nick===cu)||{pts:0,total:0,exact:0,pct:0,m:0};
+  const ud=userDB[cu]||{};
+  const pl=Object.entries(preds);
+  const avatarBig=ud.avatar
+    ?`<img src="${ud.avatar}" style="width:70px;height:70px;border-radius:50%;object-fit:cover;margin:0 auto .875rem;display:block">`
+    :`<div class="av" style="width:70px;height:70px;font-size:24px;margin:0 auto .875rem;background:${cu==='TSZINAR'?'#f59e0b':'var(--b)'}">${cu[0]}</div>`;
+  const flag=ud.countryFlag?`<span style="font-size:20px">${ud.countryFlag}</span>`:'';
+
+  document.getElementById('profile-div').innerHTML=`<div style="display:grid;grid-template-columns:260px 1fr;gap:.875rem;align-items:start">
+    <div class="card" style="text-align:center">
+      <div style="position:relative;width:70px;margin:0 auto .875rem">
+        ${avatarBig}
+        <label class="av-upload" style="position:absolute;bottom:0;right:-8px;background:var(--b);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer" title="Сменить аватар">
+          📷
+          <input type="file" accept="image/*" style="position:absolute;opacity:0;width:100%;height:100%;cursor:pointer" onchange="uploadAvatar(this)">
+        </label>
+      </div>
+      <div style="font-size:15px;font-weight:700;color:#fff">${flag} ${cu}</div>
+      <div style="font-size:11px;color:var(--g);margin:.2rem 0 .5rem">${cu==='TSZINAR'?'👑 Администратор':'⚽ Прогнозист'}</div>
+      ${ud.countryName?`<div style="font-size:11px;color:var(--mt);margin-bottom:.5rem">🌍 ${ud.countryName} — <a style="color:var(--b);cursor:pointer" onclick="sp('teams')">сменить</a></div>`:'<div style="font-size:11px;color:var(--mt);margin-bottom:.5rem"><a style="color:var(--b);cursor:pointer" onclick="sp(\'teams\')">Выберите свою страну</a></div>'}
+      <div style="display:flex;flex-direction:column;gap:.2rem">
+        <div style="display:flex;justify-content:space-between;padding:.35rem 0;border-bottom:1px solid var(--br);font-size:11px"><span style="color:var(--mt)">Баллы</span><span style="font-weight:700;color:var(--g)">${u.pts}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.35rem 0;border-bottom:1px solid var(--br);font-size:11px"><span style="color:var(--mt)">Прогнозов</span><span style="font-weight:600">${pl.length||u.total}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.35rem 0;font-size:11px"><span style="color:var(--mt)">Точных</span><span style="font-weight:600;color:#4ade80">${u.exact}</span></div>
+      </div>
+      <button class="btn bo" style="width:100%;margin-top:.875rem" onclick="logout()">Выйти</button>
+    </div>
+    <div>
+      <div class="stitle">История прогнозов</div>
+      ${pl.length===0?'<div style="text-align:center;padding:1.5rem;color:var(--mt);font-size:12px">Прогнозов пока нет</div>':pl.map(([id,p])=>{
+        const m=[...GROUP_M,...PLAYOFF_M].find(x=>x.id==id);if(!m)return'';
+        const sc=m.st==='Сыгран',pts=sc?calcPts(p.s1,p.s2,m.s1,m.s2):null;
+        return`<div style="display:flex;align-items:center;gap:.4rem;padding:.55rem .625rem;background:var(--sf);border:1px solid var(--br);border-radius:7px;margin-bottom:.35rem;font-size:11px">
+          <span>${m.f1} ${m.t1} — ${m.t2} ${m.f2}</span><span style="flex:1"></span>
+          <span style="color:var(--mt)">Мой: <b style="color:#fff">${p.s1}:${p.s2}</b></span>
+          ${sc?`<span style="color:#4ade80">${m.s1}:${m.s2}</span><span class="spts pts${pts===5?5:pts>=2?2:1}">+${pts}б</span>`:'<span style="color:var(--mt)">Ожидается</span>'}
+        </div>`;}).join('')}
+    </div>
+  </div>`;
+}
+
+function uploadAvatar(input){
+  const file=input.files[0];
+  if(!file)return;
+  if(file.size>2*1024*1024){ntf('Файл слишком большой (макс. 2МБ)');return;}
+  const reader=new FileReader();
+  reader.onload=e=>{
+    if(!userDB[cu])userDB[cu]={};
+    userDB[cu].avatar=e.target.result;
+    updateNavNick();
+    rpf();
+    ntf('Аватар обновлён!');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ============================================================
+// AUTH
+// ============================================================
+function updateNavNick(){
+  if(!cu)return;
+  const ud=userDB[cu]||{};
+  const flag=ud.countryFlag?`<span style="font-size:13px">${ud.countryFlag}</span>`:'';
+  const avatarSmall=ud.avatar
+    ?`<img src="${ud.avatar}" style="width:22px;height:22px;border-radius:50%;object-fit:cover">`
+    :`<span style="font-size:11px;font-weight:700;width:22px;height:22px;border-radius:50%;background:${cu==='TSZINAR'?'#f59e0b':'var(--b)'};display:inline-flex;align-items:center;justify-content:center;color:#fff">${cu[0]}</span>`;
+  document.getElementById('nr').innerHTML=`<div style="display:flex;align-items:center;gap:4px">${avatarSmall}${flag}<span style="font-size:11px;color:${cu==='TSZINAR'?'var(--g)':'#fff'};font-weight:500">${cu==='TSZINAR'?'👑 ':''} ${cu}</span></div><button class="btn bo" onclick="logout()">Выйти</button>`;
+}
+
+function oA(m){amode=m;document.getElementById('at-t').textContent=m==='login'?'Вход':'Регистрация';document.getElementById('ae-w').style.display=m==='reg'?'block':'none';document.getElementById('atg').innerHTML=m==='login'?'Нет аккаунта? <a onclick="swA()">Зарегистрироваться</a>':'Есть аккаунт? <a onclick="swA()">Войти</a>';document.getElementById('am').classList.add('on');}
+function swA(){oA(amode==='login'?'reg':'login');}
+function doA(){
+  const nick=document.getElementById('an').value.trim();
+  if(!nick){ntf('Введите никнейм');return;}
+  cu=nick;
+  if(!userDB[cu])userDB[cu]={};
+  document.getElementById('am').classList.remove('on');
+  updateNavNick();
+  if(nick==='TSZINAR'){document.getElementById('adm-tab').style.display='block';}
+  ntf((amode==='reg'?'Добро пожаловать, ':'С возвращением, ')+nick+'!');
+}
+function logout(){
+  cu=null;preds={};
+  document.getElementById('nr').innerHTML=`<button class="btn bo" onclick="oA('login')">Войти</button><button class="btn bg" onclick="oA('reg')">Регистрация</button>`;
+  document.getElementById('adm-tab').style.display='none';
+  document.getElementById('banner-edit-btns').style.display='none';
+  ntf('Вы вышли');
+}
+function ntf(t){const n=document.getElementById('ntf');document.getElementById('nt2').textContent=t;n.classList.add('on');setTimeout(()=>n.classList.remove('on'),3000);}
+
+// close modals on backdrop click
+document.getElementById('pub-profile-modal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('on');});
+document.getElementById('pm').addEventListener('click',function(e){if(e.target===this)cpm();});
+document.getElementById('am').addEventListener('click',function(e){if(e.target===this)document.getElementById('am').classList.remove('on');});
+
+rh();rg();rt();
+</script>
+</body>
+</html>
